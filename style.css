@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
-
 body {
   margin: 0;
   font-family: 'Raleway', sans-serif;
 }
+
 #header, #footer {
-  background:  brown;
+  background: brown;
   height: 3em;
   font-size: 20px;
   padding: 10px;
@@ -22,10 +22,8 @@ body {
   height: 2em;
 }
 
-#display {
+#display, form {
   padding: 20px;
-  display: flex;
-  flex-wrap: wrap;
 }
 
 #display img {
