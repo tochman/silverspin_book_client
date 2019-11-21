@@ -1,4 +1,13 @@
 const apiUrl = 'http://localhost:3002/books'
+let connection = new WebSocket('ws://localhost:8080')
+connection.addEventListener('message', message => {
+  console.log(message.data)
+  let formElement = document.querySelector('form')
+  let incomingMessage = document.createElement('div')
+  incomingMessage.innerHTML = `${message.data}`
+  formElement.appendChild(incomingMessage)
+})
+
 
 const fetchData = async () => {
   let data = await (await fetch(apiUrl, { credentials: 'include' })).json()
