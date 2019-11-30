@@ -31,3 +31,40 @@ body {
   height: auto;
   padding: 10px;
 }
+
+input[type=text] {
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+input[type=submit], button {
+  background-color: brown;
+  color: white;
+  padding: 11px 40px;
+  font-size: 14px;
+}
+
+/* The alert message box */
+.alert {
+  padding: 20px;
+  background-color: green; 
+  color: white;
+  margin-bottom: 15px;
+}
+
+/* The close button */
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}

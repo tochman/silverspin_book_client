@@ -2,10 +2,29 @@ const apiUrl = 'http://localhost:3002/books'
 let connection = new WebSocket('ws://localhost:8080')
 connection.addEventListener('message', message => {
   console.log(message.data)
-  let formElement = document.querySelector('form')
-  let incomingMessage = document.createElement('div')
-  incomingMessage.innerHTML = `${message.data}`
-  formElement.appendChild(incomingMessage)
+  let alerts = document.getElementsByClassName('alert');
+  while (alerts[0]) {
+    alerts[0].parentNode.removeChild(alerts[0]);
+  }
+  let incomingMessage = {}
+  try {
+    incomingMessage = JSON.parse(message.data)
+  } catch {
+    incomingMessage.message = message.data
+  }
+
+  let headerElement = document.getElementById('header')
+  let incomingMessageDisplay = document.createElement('div')
+  let htmlTemplate = `
+    <div class="alert">
+      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+      ${incomingMessage.message}
+    </div>`
+  incomingMessageDisplay.innerHTML = htmlTemplate
+  headerElement.insertAdjacentElement('afterend', incomingMessageDisplay)
+  if (incomingMessage.status === 'success') {
+    displayBooks()
+  }
 })
 
 
@@ -28,16 +47,9 @@ const submitData = async () => {
   return response
 }
 
-const submitHandler = async () => {
-  event.preventDefault()
-  submitData()
-    .then((response) => {
-      console.log(response)
-    })
-
-}
-document.addEventListener('DOMContentLoaded', () => {
+const displayBooks = () => {
   let displayElement = document.getElementById('display')
+  displayElement.innerHTML = ''
   fetchData().then((books) => {
     books.forEach(book => {
       const showDisplayElement = document.createElement('div')
@@ -47,5 +59,15 @@ document.addEventListener('DOMContentLoaded', () => {
       displayElement.appendChild(showDisplayElement)
     })
   })
+}
 
+const submitHandler = async () => {
+  event.preventDefault()
+  submitData()
+    .then((response) => {
+      console.log(response)
+    })
+}
+document.addEventListener('DOMContentLoaded', () => {
+  displayBooks()
 })
